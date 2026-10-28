@@ -1,25 +1,29 @@
 # CURRENT_STATE
 
-Last updated: 2026-10-28T18:41Z (Wave 01-05 in progress)
+Last updated: 2026-10-28T19:36Z — **FINAL (local development complete)**
 
 ## Phase
-Environment audit COMPLETE; RS-Memory local system initializing; plan analysis in progress.
-Project is in local development phase. GitHub deployment NOT started (awaiting owner approval per PLAN.md §11).
+All 30 waves complete across 6 groups. Source frozen (git commit d8876fb + evidence commit
+6e34d1c on local `main`). Release archive + SHA-256 delivered to `/home/z/my-project/download/`.
+**GitHub deployment NOT started — awaiting explicit owner approval (PLAN.md §11).**
 
-## What exists and is verified
-- Repository scaffold at `/home/z/my-project/rs-windows-cloud-workspace/` (full tree per PLAN.md §7)
-- `PLAN.md` preserved verbatim from upload (SHA-256 `071d11a0...c987`)
-- Environment audit evidence (see WAVE_HISTORY.md Wave 01)
+## Verified final state
+- Local validation (release-final run): **217 PASS / 0 FAIL / 2 BLOCKED / 219 records**, exit 0
+- pytest: **171 passed / 0 failed / 2 network-marked deselected**
+- PowerShell static validation: 9 files, 0 errors (AST gate executes on Windows runners)
+- bash -n: 6/6 scripts OK (shellcheck executes in CI lint-external job)
+- Workflow contracts: 7/7 workflows lint-clean (0 errors, 2 intentional R5 warnings)
+- Secret scan: 0 errors repo-wide
+- Live X-Lite evidence: available, 2,555,783,617 bytes, 7z magic 377abcaf271c, HTTP 206
+- Security review (AGENT-01): PASS — 0 CRITICAL/HIGH; 4 MEDIUM findings FIXED with regression
+  tests (query-auth key-leak, size pinning + ceiling, traversal-guard hardening, artifact-upload
+  scope); test audit (AGENT-02): PASS — no fake tests; docs audit (AGENT-03): 17 findings
+  integrated (including one false positive root-caused as a display-layer artifact)
 
-## What is being built now
-- docs/PLAN-ANALYSIS.md, docs/REQUIREMENTS-MATRIX.md, docs/IMPLEMENTATION-ROADMAP.md, docs/ACCEPTANCE-CRITERIA.md
-- Core Python tooling, PowerShell suite, Linux automation, GitHub Actions workflows, test suite
+## Inventory
+102 tracked files: 8 Python modules, 9 PowerShell files, 6 Linux scripts, 7 workflows,
+15 test files (171 tests), 10 automation tasks, 8 docs, config/3, applications/1,
+.rs-memory/19 (13 files + 6 checkpoints).
 
-## Verified environment facts
-- Debian 13, Python 3.12.16, pytest 9.0.2, PyYAML 6.0.3, git/curl/jq/zip/tar/sha256sum/unzip present
-- shellcheck, actionlint, pwsh, 7z NOT installed locally (fetch attempts + fallbacks tracked in BLOCKERS.md)
-- Pixeldrain file `ZdPxkVmH` is LIVE and serves genuine 7z content (magic bytes verified 2026-10-28T18:40Z)
-- Sandbox: 2 CPU, 4 GB RAM, 9.3 GB free disk — full multi-GB archive inspection deferred to Windows runner
-
-## Not started / blocked
-- Everything listed in PENDING.md; blockers in BLOCKERS.md
+## Blockers (all recorded, none unresolved silently)
+See BLOCKERS.md — B-01..B-07 all have resolutions or by-design gates.

@@ -89,3 +89,28 @@ Status: COMPLETE
   docs/TROUBLESHOOTING.md
 - Regression after docs: orchestrator 205 PASS / 0 FAIL / 2 BLOCKED, exit 0
 Status: COMPLETE
+
+## Waves 26-30 — Review agents, integration, freeze, packaging, delivery — 2026-10-28T19:26-19:36Z
+- AGENT-01 (security, parallel) + AGENT-03 (docs, parallel) launched; AGENT-02 launch failed
+  (upstream API 400, E-011) and was relaunched successfully — genuine agent count: 4 total
+- AGENT-01 verdict PASS: 4 MEDIUM + 9 LOW/INFO findings -> ALL actionable items fixed with
+  regression tests: query-auth key-leak (query stripped from id derivation), size pinning
+  (expected_size_bytes 2555783617) + download ceiling, traversal-guard hardening
+  (drive-absolute/backslash/../NTFS-ADS/symlink rejection + post-extraction symlink check),
+  xlite artifact upload scope (reports only), cleanup separator guard, checksum-verified
+  actionlint installer, env-only API key (--api-key flag removed)
+- AGENT-02 verdict PASS: no fake tests; 4 non-blocking recommendations implemented
+  (parse_junit tests, R9 rule test, report_generator CLI test, 7z skip guard)
+- AGENT-03 verdict FAIL at audit time: 17 findings -> all integrated; finding 2 (claimed
+  'branches: ain]' corruption) root-caused as a DISPLAY-LAYER FALSE POSITIVE (display
+  consumes [m substrings; od -c byte-verified disk content correct) — E-010; defense added
+  anyway: R10 linter rule + branch-filter contract test
+- Final validation (release-final): 217 PASS / 0 FAIL / 2 BLOCKED / 219 records, exit 0;
+  pytest 171 passed / 2 deselected
+- E-012 (checksum file format) diagnosed + fixed + regression-verified
+- SOURCE FREEZE: git init on main, commits d8876fb (freeze) + 6e34d1c (evidence) — LOCAL ONLY
+- PACKAGING: rs-windows-cloud-workspace-v1.0.0.zip (152 KB, 102 tracked files, unzip -t clean)
+  delivered to /home/z/my-project/download/ with SHA-256
+  0b4bee821b66c6356880515618e12ac2e31ce22c522d120524edddee39ac52e3 (verified at both locations)
+- Release report issued (docs/RELEASE-REPORT.md + download/); GitHub NOT DEPLOYED
+Status: COMPLETE — all 30 waves done; awaiting owner approval for deployment
