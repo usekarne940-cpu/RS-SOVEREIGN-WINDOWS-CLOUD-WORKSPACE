@@ -1,0 +1,38 @@
+{
+  "tool": "rs-xlite-inspector",
+  "tool_version": "1.0.0",
+  "generated_utc": "2026-10-28T18:55:07Z",
+  "config": "config/xlite.json",
+  "analysis_only": true,
+  "steps": [
+    {
+      "step": "probe",
+      "status": "PASS",
+      "detail": {
+        "http_status": 206,
+        "range_honored": true,
+        "bytes_received": 65536,
+        "total_size_bytes": 2555783617,
+        "filename": "[Windows X-Lite] Optimum 11 26H1 Pro v2.7z",
+        "content_type": "application/x-7z-compressed",
+        "first_bytes_hex": "377abcaf271c0004",
+        "is_7z_archive": true,
+        "expected_file": "[Windows X-Lite] Optimum 11 26H1 Pro v2.7z",
+        "total_size_human": "2.4 GiB"
+      }
+    }
+  ],
+  "disclaimer": "Windows X-Lite is inspected for analysis only. It is NEVER booted, executed or installed, and it CANNOT replace the operating system of a GitHub-hosted Windows runner (PLAN.md section 6).",
+  "probe": {
+    "http_status": 206,
+    "range_honored": true,
+    "bytes_received": 65536,
+    "total_size_bytes": 2555783617,
+    "filename": "[Windows X-Lite] Optimum 11 26H1 Pro v2.7z",
+    "content_type": "application/x-7z-compressed",
+    "first_bytes_hex": "377abcaf271c0004",
+    "is_7z_archive": true,
+    "expected_file": "[Windows X-Lite] Optimum 11 26H1 Pro v2.7z",
+    "total_size_human": "2.4 GiB"
+  }
+}

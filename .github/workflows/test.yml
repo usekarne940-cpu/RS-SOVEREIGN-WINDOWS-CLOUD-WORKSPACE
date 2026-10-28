@@ -1,0 +1,77 @@
+name: RS Test Suite
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-tests:
+    name: pytest (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        python-version: ['3.12']
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dev requirements
+        run: python -m pip install --disable-pip-version-warning -r scripts/python/requirements.txt
+
+      - name: PowerShell AST syntax gate (Windows only)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/powershell/Test-Syntax.ps1
+
+      - name: Run pytest suites (network-excluded)
+        run: python -m pytest tests/unit tests/integration tests/workflow tests/security tests/gui -m "not network" --junitxml=reports/pytest-${{ matrix.os }}.xml -q
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-${{ matrix.os }}
+          path: reports/
+          retention-days: 7
+          if-no-files-found: warn
+
+  lint-external:
+    name: external linters (shellcheck + actionlint)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: ShellCheck (preinstalled on ubuntu runners)
+        run: shellcheck -S warning scripts/linux/*.sh
+
+      - name: Install actionlint (pinned v1.7.12, checksum-verified)
+        run: |
+          # official installer downloads the pinned release AND verifies its
+          # published checksum before use (AGENT-01 finding 8)
+          curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/v1.7.12/scripts/download-actionlint.bash -o download-actionlint.bash
+          bash download-actionlint.bash v1.7.12 .
+
+      - name: Run actionlint
+        run: |
+          ./actionlint -version
+          ./actionlint

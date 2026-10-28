@@ -1,0 +1,10 @@
+{
+  "name": "audit",
+  "description": "Environment audit: hardware, tools, network (per-OS report)",
+  "os": ["windows", "linux"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Get-SystemAudit.ps1",
+    "linux": "bash scripts/linux/audit.sh"
+  },
+  "timeout_seconds": 300
+}

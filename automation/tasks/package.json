@@ -1,0 +1,9 @@
+{
+  "name": "package",
+  "description": "Build source release archive + SHA-256 into artifacts/release/",
+  "os": ["linux"],
+  "commands": {
+    "linux": "bash scripts/linux/package_release.sh"
+  },
+  "timeout_seconds": 300
+}

@@ -1,0 +1,46 @@
+name: RS GUI Automation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gui.yml'
+      - 'scripts/powershell/**'
+      - 'applications/**'
+      - 'config/applications.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gui-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-gui:
+    name: Windows GUI smoke tests
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install applications (winget)
+        shell: pwsh
+        run: ./scripts/powershell/Install-Applications.ps1
+
+      - name: Run GUI smoke tests
+        shell: pwsh
+        run: ./scripts/powershell/Invoke-GuiTest.ps1
+
+      - name: Upload GUI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gui-evidence
+          path: |
+            reports/
+            artifacts/screenshots/
+          retention-days: 7
+          if-no-files-found: warn

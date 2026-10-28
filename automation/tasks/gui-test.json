@@ -1,0 +1,9 @@
+{
+  "name": "gui-test",
+  "description": "GUI smoke tests (launch, verify, send keys, screenshot, close)",
+  "os": ["windows"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Invoke-GuiTest.ps1"
+  },
+  "timeout_seconds": 600
+}

@@ -1,0 +1,9 @@
+{
+  "name": "xlite-probe",
+  "description": "X-Lite availability probe: HTTP range check + 7z signature (no full download)",
+  "os": ["windows", "linux"],
+  "commands": {
+    "any": "python scripts/python/xlite_inspector.py --config config/xlite.json probe --bytes 65536 --report reports/xlite-probe.json"
+  },
+  "timeout_seconds": 180
+}

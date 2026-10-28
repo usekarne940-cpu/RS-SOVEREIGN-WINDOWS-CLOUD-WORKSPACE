@@ -1,0 +1,9 @@
+{
+  "name": "screenshots",
+  "description": "Desktop screenshot capture + visible window enumeration",
+  "os": ["windows"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Capture-Screenshots.ps1"
+  },
+  "timeout_seconds": 180
+}

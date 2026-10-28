@@ -1,0 +1,9 @@
+{
+  "name": "windows-tests",
+  "description": "Run pytest suites on Windows with JUnit evidence",
+  "os": ["windows"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Invoke-WindowsTests.ps1"
+  },
+  "timeout_seconds": 1800
+}

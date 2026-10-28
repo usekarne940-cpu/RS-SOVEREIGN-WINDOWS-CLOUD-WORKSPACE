@@ -1,0 +1,79 @@
+# ANALYSIS ONLY (PLAN.md §6): this workflow inspects the user-provided Windows
+# X-Lite archive (metadata, integrity, structure). It NEVER executes anything
+# from the archive and NEVER installs the image onto the runner. The only
+# secret used is the optional PIXELDRAIN_API_KEY, passed via environment,
+# never echoed.
+name: RS X-Lite Inspection
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Inspection mode'
+        type: choice
+        required: true
+        default: 'probe'
+        options:
+          - 'probe'
+          - 'full'
+      expected_sha256:
+        description: 'Optional expected SHA-256 of the archive'
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xlite-inspection
+  cancel-in-progress: false
+
+jobs:
+  windows-xlite-inspection:
+    name: X-Lite archive inspection (${{ inputs.mode }})
+    runs-on: windows-latest
+    timeout-minutes: 120
+    env:
+      PIXELDRAIN_API_KEY: ${{ secrets.PIXELDRAIN_API_KEY }}
+      XLITE_EXPECTED_SHA256: ${{ inputs.expected_sha256 }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Inspect archive (probe — availability + signature, no full download)
+        if: inputs.mode == 'probe'
+        shell: pwsh
+        run: |
+          $expected = if ($env:XLITE_EXPECTED_SHA256) { $env:XLITE_EXPECTED_SHA256 } else { '' }
+          ./scripts/powershell/Invoke-XliteInspection.ps1 -Mode probe -ExpectedSha256 $expected
+
+      - name: Inspect archive (full — download, sha256, safe listing, ISO detection)
+        if: inputs.mode == 'full'
+        shell: pwsh
+        run: |
+          $expected = if ($env:XLITE_EXPECTED_SHA256) { $env:XLITE_EXPECTED_SHA256 } else { '' }
+          ./scripts/powershell/Invoke-XliteInspection.ps1 -Mode full -ExpectedSha256 $expected
+
+      - name: Safety note
+        if: always()
+        shell: bash
+        run: |
+          echo "Windows X-Lite inspection is ANALYSIS ONLY."
+          echo "Nothing from the archive was executed; the image cannot replace the runner OS."
+
+      - name: Upload inspection report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          # Analysis results only — never the multi-GB archive or extracted
+          # image (AGENT-01 finding 4: size quota + redistribution risk)
+          name: xlite-inspection-${{ inputs.mode }}
+          path: reports/xlite-*.json
+          retention-days: 3
+          if-no-files-found: warn

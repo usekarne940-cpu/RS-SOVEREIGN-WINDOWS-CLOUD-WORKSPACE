@@ -1,0 +1,40 @@
+name: RS Screenshot Capture
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/screenshots.yml'
+      - 'scripts/powershell/Capture-Screenshots.ps1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-screenshots:
+    name: Capture desktop screenshots
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Capture desktop screenshot
+        shell: pwsh
+        run: ./scripts/powershell/Capture-Screenshots.ps1
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-screenshots
+          path: |
+            artifacts/screenshots/
+            reports/screenshots.json
+          retention-days: 7
+          if-no-files-found: warn

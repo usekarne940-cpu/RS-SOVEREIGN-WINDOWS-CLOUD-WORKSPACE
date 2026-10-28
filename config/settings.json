@@ -1,0 +1,18 @@
+{
+  "schema": "rs-settings/1.0",
+  "version": "1.0.0",
+  "report_dir": "reports",
+  "artifact_dir": "artifacts",
+  "screenshot_dir": "artifacts/screenshots",
+  "timeouts": {
+    "default_job_minutes": 20,
+    "gui_job_minutes": 30,
+    "xlite_job_minutes": 120
+  },
+  "artifact_retention_days": 7,
+  "xlite": {
+    "config_path": "config/xlite.json",
+    "probe_bytes": 65536,
+    "min_free_disk_gb": 15
+  }
+}

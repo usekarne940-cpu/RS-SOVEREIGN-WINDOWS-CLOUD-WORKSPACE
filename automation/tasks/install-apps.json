@@ -1,0 +1,9 @@
+{
+  "name": "install-apps",
+  "description": "Idempotent winget application install from config/applications.json",
+  "os": ["windows"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Install-Applications.ps1"
+  },
+  "timeout_seconds": 900
+}

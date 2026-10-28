@@ -1,0 +1,13 @@
+{
+  "schema": "rs-applications/1.0",
+  "description": "winget application list for GitHub-hosted Windows runners (consumed by scripts/powershell/Install-Applications.ps1)",
+  "applications": [
+    {"id": "Git.Git", "name": "Git", "category": "core", "required": true},
+    {"id": "Python.Python.3.12", "name": "Python 3.12", "category": "core", "required": true},
+    {"id": "7zip.7zip", "name": "7-Zip", "category": "core", "required": true},
+    {"id": "OpenJS.NodeJS.LTS", "name": "Node.js LTS", "category": "dev", "required": false},
+    {"id": "Microsoft.VisualStudioCode", "name": "Visual Studio Code", "category": "dev", "required": false},
+    {"id": "Google.Chrome", "name": "Google Chrome", "category": "browser", "required": false},
+    {"id": "Mozilla.Firefox", "name": "Mozilla Firefox", "category": "browser", "required": false}
+  ]
+}

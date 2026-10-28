@@ -1,0 +1,36 @@
+{
+  "schema": "rs-gui-apps/1.0",
+  "description": "GUI smoke-test application specs consumed by scripts/powershell/Invoke-GuiTest.ps1. close: window = CloseMainWindow, process = Stop-Process, none = leave running (shell-managed).",
+  "apps": [
+    {
+      "name": "notepad",
+      "enabled": true,
+      "launch": "notepad.exe",
+      "process": "notepad",
+      "launch_wait_s": 5,
+      "send_keys": "RS CLOUD WORKSPACE GUI TEST 123",
+      "verify_title_contains": "Notepad",
+      "close": "window"
+    },
+    {
+      "name": "calculator",
+      "enabled": true,
+      "launch": "calc.exe",
+      "process": "CalculatorApp",
+      "launch_wait_s": 8,
+      "send_keys": "",
+      "verify_title_contains": "",
+      "close": "process"
+    },
+    {
+      "name": "explorer",
+      "enabled": true,
+      "launch": "explorer.exe",
+      "process": "explorer",
+      "launch_wait_s": 5,
+      "send_keys": "",
+      "verify_title_contains": "",
+      "close": "none"
+    }
+  ]
+}

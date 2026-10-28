@@ -1,0 +1,60 @@
+name: RS Environment Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit.yml'
+      - 'scripts/**'
+      - 'tests/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-audit:
+    name: Windows system audit
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Run Windows system audit
+        shell: pwsh
+        run: ./scripts/powershell/Get-SystemAudit.ps1
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-system-audit
+          path: reports/
+          retention-days: 7
+          if-no-files-found: warn
+
+  linux-audit:
+    name: Linux environment audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Run Linux environment audit
+        shell: bash
+        run: bash scripts/linux/audit.sh
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-environment-audit
+          path: reports/
+          retention-days: 7
+          if-no-files-found: warn

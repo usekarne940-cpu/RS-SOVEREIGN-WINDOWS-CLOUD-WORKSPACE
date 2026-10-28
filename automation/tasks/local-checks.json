@@ -1,0 +1,9 @@
+{
+  "name": "local-checks",
+  "description": "Full local validation orchestrator (imports, configs, shell, PS, workflows, secrets, pytest)",
+  "os": ["windows", "linux"],
+  "commands": {
+    "any": "python scripts/python/run_all_checks.py"
+  },
+  "timeout_seconds": 1800
+}

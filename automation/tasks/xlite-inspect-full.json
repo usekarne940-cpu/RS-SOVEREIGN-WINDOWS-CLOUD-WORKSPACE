@@ -1,0 +1,9 @@
+{
+  "name": "xlite-inspect-full",
+  "description": "X-Lite full inspection: download + sha256 + 7z listing + ISO detection (analysis only)",
+  "os": ["windows"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Invoke-XliteInspection.ps1 -Mode full"
+  },
+  "timeout_seconds": 5400
+}

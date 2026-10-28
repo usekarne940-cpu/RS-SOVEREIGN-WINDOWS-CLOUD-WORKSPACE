@@ -1,0 +1,55 @@
+name: RS Workspace Cleanup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cleanup
+  cancel-in-progress: false
+
+jobs:
+  windows-cleanup:
+    name: Windows workspace cleanup
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Run guarded cleanup
+        shell: pwsh
+        run: ./scripts/powershell/Invoke-Cleanup.ps1
+
+      - name: Upload cleanup report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleanup-windows
+          path: reports/cleanup.json
+          retention-days: 3
+          if-no-files-found: warn
+
+  linux-cleanup:
+    name: Linux workspace cleanup
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Run guarded cleanup
+        run: bash scripts/linux/cleanup.sh
+
+      - name: Upload cleanup report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleanup-linux
+          path: reports/cleanup-linux.json
+          retention-days: 3
+          if-no-files-found: warn

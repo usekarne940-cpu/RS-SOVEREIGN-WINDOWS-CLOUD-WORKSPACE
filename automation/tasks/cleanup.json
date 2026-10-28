@@ -1,0 +1,10 @@
+{
+  "name": "cleanup",
+  "description": "Guarded workspace cleanup (per-OS)",
+  "os": ["windows", "linux"],
+  "commands": {
+    "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/Invoke-Cleanup.ps1",
+    "linux": "bash scripts/linux/cleanup.sh"
+  },
+  "timeout_seconds": 300
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rs-xlite/1.0",
+  "file_id": "ZdPxkVmH",
+  "filename": "[Windows X-Lite] Optimum 11 26H1 Pro v2.7z",
+  "page_url": "https://pixeldrain.com/u/ZdPxkVmH",
+  "api_endpoint": "https://pixeldrain.com/api/file/ZdPxkVmH",
+  "expected_sha256": null,
+  "expected_size_bytes": 2555783617,
+  "min_free_disk_gb": 15,
+  "analysis_only": true,
+  "never_execute": true,
+  "notes": "Inspection and analysis only. The archive is never booted, never executed and never installed onto GitHub-hosted runners (PLAN.md section 6)."
+}
