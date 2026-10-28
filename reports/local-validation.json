@@ -1,6 +1,6 @@
 {
-  "run_id": "wave26-30-final",
-  "generated_utc": "2026-10-28T19:34:55Z",
+  "run_id": "release-final",
+  "generated_utc": "2026-10-28T19:35:47Z",
   "repo_root": "/home/z/my-project/rs-windows-cloud-workspace",
   "counts": {
     "PASS": 217,
@@ -534,7 +534,7 @@
       "name": "Repository secret scan",
       "command": "secret_scanner.scan_repo(<repo>)",
       "expected": "0 error findings",
-      "actual": "0 error findings (2 total, 101 files)",
+      "actual": "0 error findings (2 total, 102 files)",
       "status": "PASS",
       "evidence": "/home/z/my-project/rs-windows-cloud-workspace/tests/unit/test_secret_scanner.py:40: passwo...; /home/z/my-project/rs-windows-cloud-workspace/tests/unit/test_xlite_inspector.py:350: api_ke...",
       "error": ""

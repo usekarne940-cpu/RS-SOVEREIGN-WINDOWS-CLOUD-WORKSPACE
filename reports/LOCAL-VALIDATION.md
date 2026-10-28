@@ -1,4 +1,4 @@
-# Local Validation — wave26-30-final
+# Local Validation — release-final
 
 Total records: 219
 
@@ -295,7 +295,7 @@ Total records: 219
 
 | TEST ID | NAME | COMMAND | EXPECTED | ACTUAL | STATUS | EVIDENCE | ERROR |
 |---------|------|---------|----------|--------|--------|----------|-------|
-| SEC-SCAN | Repository secret scan | `secret_scanner.scan_repo(<repo>)` | 0 error findings | 0 error findings (2 total, 101 files) | **PASS** | /home/z/my-project/rs-windows-cloud-workspace/tests/unit/test_secret_scanner.py:40: passwo...; /home/z/my-project/rs-windows-cloud-workspace/tests/unit/test_xlite_inspector.py:350: api_ke... |  |
+| SEC-SCAN | Repository secret scan | `secret_scanner.scan_repo(<repo>)` | 0 error findings | 0 error findings (2 total, 102 files) | **PASS** | /home/z/my-project/rs-windows-cloud-workspace/tests/unit/test_secret_scanner.py:40: passwo...; /home/z/my-project/rs-windows-cloud-workspace/tests/unit/test_xlite_inspector.py:350: api_ke... |  |
 
 ## Suite: shell
 
