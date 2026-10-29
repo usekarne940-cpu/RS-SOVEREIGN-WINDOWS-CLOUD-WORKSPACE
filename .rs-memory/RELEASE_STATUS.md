@@ -17,3 +17,11 @@ Last updated: 2026-10-28T19:36Z — **FINAL**
 - Release readiness: **READY — PENDING OWNER APPROVAL**
 - Post-approval sequence (docs/SETUP.md): create private repo -> push -> run test.yml ->
   audit/gui/screenshots/xlite workflows -> optional v* tag for GitHub Release
+
+## GitHub Deployment (2026-10-29)
+
+- Repo: https://github.com/usekarne940-cpu/RS-SOVEREIGN-WINDOWS-CLOUD-WORKSPACE
+- Pushed: main @ d47ed8f (104 files, source freeze + release evidence + final memory state)
+- Release: v1.0.0 tag created, package zip (161,395 B) uploaded as release asset
+- SHA-256: aeb36cc548ebdd7df073dcf80d9ff762fc168155ab3d87b60e742066d2d4ef64
+- Status: DEPLOYED ✅

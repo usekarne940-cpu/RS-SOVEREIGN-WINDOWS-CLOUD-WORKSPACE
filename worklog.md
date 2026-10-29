@@ -45,3 +45,8 @@ Final validation 217/0/2; source frozen (commits d8876fb + 6e34d1c, local only);
 packaged and delivered with verified SHA-256
 0b4bee821b66c6356880515618e12ac2e31ce22c522d120524edddee39ac52e3. GitHub NOT DEPLOYED —
 awaiting owner approval per PLAN.md §11.
+
+## 2026-10-29 — GitHub Deployment
+- Deployed to new repo `RS-SOVEREIGN-WINDOWS-CLOUD-WORKSPACE` (force push, MST test content replaced)
+- Release v1.0.0 published with zip + SHA-256 asset
+- Repo description set to project summary
